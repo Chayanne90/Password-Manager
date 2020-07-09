@@ -7,15 +7,30 @@ public class Manager {
     private String description;
     private String password;
 
+    /* Getters and Setters*/
+    public String getEmaill() {
+        return emaill;
+    }
 
+    public void setEmaill(String emaill) {
+        this.emaill = emaill;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     /* Methods */
-    public String generatePassword() {                                          // This method return a randome password.
-        
+    public String generatePassword() {                                          /* This method return a randome password */
+
         Random r = new Random();
         String randomeCharacter = "9536oplejkv@#$%";
 
-        /* This array type char is the same size of randomeCharacter*/
+        // This array type char is the same size of randomeCharacter
         char [] arr = new char[randomeCharacter.length()];
 
         for (int i = 0; i < 10; i++) {
@@ -29,4 +44,10 @@ public class Manager {
         this.password = pwd;
         return this.password;
     }
+
+
+
+
+
+
 }
