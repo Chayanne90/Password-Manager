@@ -1,12 +1,23 @@
+import java.util.Random;
+
+public class Manager {
+
+    /*Instance Variables*/
+    private String emaill;
+    private String description;
+    private String password;
 
 
-public interface Manager {
 
+    /* Methods*/
+    public String generatePassword() {
+        
+        Random r = new Random();
+        String alphabet = "1295xyzrgb";
 
-    /* This method generate password */
-    public String generatePassword();
+        for (int i = 0; i < 10; i++) {
 
-    /* This method update the password create the account*/
-    public void updatePassword();
-
+            System.out.print(alphabet.charAt(r.nextInt(alphabet.length())));
+        }
+    }
 }
