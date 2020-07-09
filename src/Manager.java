@@ -9,15 +9,24 @@ public class Manager {
 
 
 
-    /* Methods*/
-    public String generatePassword() {
+    /* Methods */
+    public String generatePassword() {                                          // This method return a randome password.
         
         Random r = new Random();
-        String alphabet = "1295xyzrgb";
+        String randomeCharacter = "9536oplejkv@#$%";
+
+        /* This array type char is the same size of randomeCharacter*/
+        char [] arr = new char[randomeCharacter.length()];
 
         for (int i = 0; i < 10; i++) {
 
-            System.out.print(alphabet.charAt(r.nextInt(alphabet.length())));
+            // Inserting char into arr
+            arr[i] = randomeCharacter.charAt(r.nextInt(randomeCharacter.length()));
         }
+
+        // Copying values if arr into pwd.
+        String pwd = String.copyValueOf(arr);
+        this.password = pwd;
+        return this.password;
     }
 }
