@@ -1,19 +1,20 @@
+import java.sql.*;
 import java.util.Random;
 
 public class Manager {
 
-    /*Instance Variables*/
-    private String emaill;
+    /* Instance Variables */
+    private String email;
     private String description;
     private String password;
 
-    /* Getters and Setters*/
-    public String getEmaill() {
-        return emaill;
+    /* Getters and Setters */
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmaill(String emaill) {
-        this.emaill = emaill;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getDescription() {
@@ -25,7 +26,7 @@ public class Manager {
     }
 
     /* Methods */
-    public String generatePassword() {                                          /* This method return a randome password */
+    public String generatePassword() {                                          /* This method return a random password */
 
         Random r = new Random();
         String randomeCharacter = "9536oplejkv@#$%";
@@ -39,15 +40,25 @@ public class Manager {
             arr[i] = randomeCharacter.charAt(r.nextInt(randomeCharacter.length()));
         }
 
-        // Copying values if arr into pwd.
+        // Copying values if arr into pwd
         String pwd = String.copyValueOf(arr);
         this.password = pwd;
         return this.password;
     }
 
+    /* Database Connection */
+    private Connection connection() {
 
+        String url = "jdbc:mysql://localhost:3306";
+        Connection conn = null;
 
+        try {
+            conn = DriverManager.getConnection(url);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
-
-
+        return conn;
+    }
+    
 }
