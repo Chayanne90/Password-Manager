@@ -68,20 +68,28 @@ public class Manager {
     }
 
 
-    public void insertAccount(String accountDescription) {
+    public int insertAccount(String accountDescription) {
 
         String sql = "INSERT INTO Accounts (description, date)" + "VALUES (?, datetime('now'))";
+
+        int resultQuery = 0;
 
         try (Connection connection = this.connection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, accountDescription);
-            pstmt.executeUpdate();
+            resultQuery = pstmt.executeUpdate();
             connection.close();
 
             System.out.println("Data Inserted...");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
+        return resultQuery;
+    }
+
+    public void insertCredentials() {
+
     }
 
 }
