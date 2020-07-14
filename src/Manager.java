@@ -29,36 +29,54 @@ public class Manager {
     public String generatePassword() {                                          /* This method return a random password */
 
         Random r = new Random();
-        String randomeCharacter = "9536oplejkv@#$%";
+        String randomCharacter = "9536oplejkv@#$%";
 
         // This array type char is the same size of randomeCharacter
-        char [] arr = new char[randomeCharacter.length()];
+        char [] arr = new char[randomCharacter.length()];
 
         for (int i = 0; i < 10; i++) {
 
             // Inserting char into arr
-            arr[i] = randomeCharacter.charAt(r.nextInt(randomeCharacter.length()));
+            arr[i] = randomCharacter.charAt(r.nextInt(randomCharacter.length()));
         }
 
-        // Copying values if arr into pwd
+        // Copying values from arr into pwd variable
         String pwd = String.copyValueOf(arr);
         this.password = pwd;
         return this.password;
     }
 
     /* Database Connection */
-    private Connection connection() {
+    public Connection connection() {
 
-        String url = "jdbc:mysql://localhost:3306";
+        String url = "jdbc:sqlite:password_manager.db";
+
+
         Connection conn = null;
 
         try {
             conn = DriverManager.getConnection(url);
+
         } catch (Exception e){
+            System.out.println("Not Connected to Database");
             System.out.println(e.getMessage());
         }
 
         return conn;
     }
-    
+
+
+//    public void insertAccount() {
+//
+//        String sql = "INSERT INTO Accounts description, date" +
+//                     "VALUES ('test@gmail.com', SYSDATE())";
+//
+//        try (Connection connection = this.connection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
+//
+//            connection.close();
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
+
 }
