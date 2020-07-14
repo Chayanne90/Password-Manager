@@ -47,36 +47,41 @@ public class Manager {
     }
 
     /* Database Connection */
-    public Connection connection() {
+    private Connection connection() {
 
         String url = "jdbc:sqlite:password_manager.db";
-
 
         Connection conn = null;
 
         try {
             conn = DriverManager.getConnection(url);
 
-        } catch (Exception e){
-            System.out.println("Not Connected to Database");
+            //System.out.println(" Connected to Database...");
+
+        } catch (SQLException e){
+
             System.out.println(e.getMessage());
         }
+
 
         return conn;
     }
 
 
-//    public void insertAccount() {
-//
-//        String sql = "INSERT INTO Accounts description, date" +
-//                     "VALUES ('test@gmail.com', SYSDATE())";
-//
-//        try (Connection connection = this.connection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
-//
-//            connection.close();
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
+    public void insertAccount(String accountDescription) {
+
+        String sql = "INSERT INTO Accounts (description, date)" + "VALUES (?, datetime('now'))";
+
+        try (Connection connection = this.connection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, accountDescription);
+            pstmt.executeUpdate();
+            connection.close();
+
+            System.out.println("Data Inserted...");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 }
