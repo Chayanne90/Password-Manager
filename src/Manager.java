@@ -47,7 +47,7 @@ public class Manager {
     }
 
     /* Database Connection */
-    private Connection connection() {
+    private Connection connection() {                                           /* return object type connection */
 
         String url = "jdbc:sqlite:password_manager.db";
 
@@ -63,12 +63,11 @@ public class Manager {
             System.out.println(e.getMessage());
         }
 
-
         return conn;
     }
 
 
-    public int insertAccount(String accountDescription) {
+    public int insertAccount(String accountDescription) {                        /* return 1 when an account is inserted in the database  */
 
         String sql = "INSERT INTO Accounts (description, date)" + "VALUES (?, datetime('now'))";
 
@@ -77,6 +76,8 @@ public class Manager {
         try (Connection connection = this.connection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, accountDescription);
+
+            // pstmt.executeUpdate() -
             resultQuery = pstmt.executeUpdate();
             connection.close();
 
@@ -88,7 +89,38 @@ public class Manager {
         return resultQuery;
     }
 
-    public void insertCredentials() {
+    public String getAccounts(String description) {
+
+        String sql = "SELECT acc_id, description FROM Accounts WHERE description = ?";
+        ResultSet st;
+
+        String id = null;
+        String descript;
+
+        try (Connection connection = this.connection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, description);
+            st = pstmt.executeQuery();
+
+            while (st.next()) {
+
+                id = st.getString("acc_id");
+                //descript = st.getString("description");
+
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return id;
+
+    }
+
+    public void insertCredentials(int acc_id, String email, String password) {
+
+
 
     }
 
