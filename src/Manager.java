@@ -29,7 +29,7 @@ public class Manager {
     public String generatePassword() {                                          /* This method return a random password */
 
         Random r = new Random();
-        String randomCharacter = "9536oplejkv@#$%";
+        String randomCharacter = "953apile$%";
 
         // This array type char is the same size of randomeCharacter
         char [] arr = new char[randomCharacter.length()];
@@ -50,16 +50,12 @@ public class Manager {
     private Connection connection() {                                           /* return object type connection */
 
         String url = "jdbc:sqlite:password_manager.db";
-
         Connection conn = null;
 
         try {
             conn = DriverManager.getConnection(url);
-
             //System.out.println(" Connected to Database...");
-
         } catch (SQLException e){
-
             System.out.println(e.getMessage());
         }
 
@@ -67,17 +63,14 @@ public class Manager {
     }
 
 
-    public int insertAccount(String accountDescription) {                        /* return 1 when an account is inserted in the database  */
+    public int insertAccount(String accountDescription) {                        /* Insert the account into the database and return 1 when successfully inserted  */
 
         String sql = "INSERT INTO Accounts (description, date)" + "VALUES (?, datetime('now'))";
-
         int resultQuery = 0;
 
         try (Connection connection = this.connection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, accountDescription);
-
-            // pstmt.executeUpdate() -
             resultQuery = pstmt.executeUpdate();
             connection.close();
 
@@ -89,11 +82,10 @@ public class Manager {
         return resultQuery;
     }
 
-    public String getAccounts(String description) {
+    public String getAccounts(String description) {                                /* return the id and description of the account */
 
         String sql = "SELECT acc_id, description FROM Accounts WHERE description = ?";
         ResultSet st;
-
         String id = null;
         String descript;
 
@@ -103,10 +95,8 @@ public class Manager {
             st = pstmt.executeQuery();
 
             while (st.next()) {
-
                 id = st.getString("acc_id");
                 //descript = st.getString("description");
-
             }
 
             connection.close();
@@ -118,10 +108,22 @@ public class Manager {
 
     }
 
-    public void insertCredentials(int acc_id, String email, String password) {
+    public void insertCredentials(String acc_id, String email, String password) {     /* Insert the credentials of teh account into the database */
 
+        String sql = "INSERT INTO Credentials (acc_id, email, password, date) VALUES(?,?,?, datetime('now'))";
 
+        try (Connection connection = this.connection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
+            pstmt.setString(1, acc_id);
+            pstmt.setString(2, email);
+            pstmt.setString(3, password);
+            pstmt.executeUpdate();
+            connection.close();
+            System.out.println("Account Credentials Inserted...");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }
