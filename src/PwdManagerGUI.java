@@ -66,40 +66,23 @@ public class PwdManagerGUI {
 
         addBtn = new JButton("Add");
         addBtn.setBounds(210,60, 80,25);
+        addBtn.addActionListener(new App());
         panel.add(addBtn);
 
         cancelBtn = new JButton("Cancel");
         cancelBtn.setBounds(210,100,80,25);
+        cancelBtn.addActionListener(new App());
         panel.add(cancelBtn);
 
         updateBtn = new JButton("Update");
         updateBtn.setBounds(210,140,80,25);
+        updateBtn.addActionListener(new App());
         panel.add(updateBtn);
 
 
         accountsLabel = new JLabel("Account List");
         accountsLabel.setBounds(370,15,160,25);
         panel.add(accountsLabel);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
