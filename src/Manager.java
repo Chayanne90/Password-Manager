@@ -29,7 +29,7 @@ public class Manager {
     public String generatePassword() {                                          /* This method return a random password */
 
         Random r = new Random();
-        String randomCharacter = "953apile$%";
+        String randomCharacter = "95#apile$%";
 
         // This array type char is the same size of randomeCharacter
         char [] arr = new char[randomCharacter.length()];
@@ -47,7 +47,7 @@ public class Manager {
     }
 
     /* Database Connection */
-    private Connection connection() {                                           /* return object type connection */
+    private Connection connection() {                                            /* return object type connection */
 
         String url = "jdbc:sqlite:password_manager.db";
         Connection conn = null;
@@ -63,7 +63,7 @@ public class Manager {
     }
 
 
-    public int insertAccount(String accountDescription) {                        /* Insert the account into the database and return 1 when successfully inserted  */
+    public int insertAccount(String accountDescription) {                         /* Insert the account into the database and return 1 when successfully inserted  */
 
         String sql = "INSERT INTO Accounts (description, date)" + "VALUES (?, datetime('now'))";
         int resultQuery = 0;
@@ -105,7 +105,6 @@ public class Manager {
         }
 
         return id;
-
     }
 
     public void insertCredentials(String acc_id, String email, String password) {     /* Insert the credentials of teh account into the database */
@@ -125,5 +124,4 @@ public class Manager {
             System.out.println(e.getMessage());
         }
     }
-
 }
