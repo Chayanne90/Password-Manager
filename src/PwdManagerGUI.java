@@ -1,7 +1,8 @@
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class PwdManagerGUI {
+public class PwdManagerGUI implements ActionListener {
 
     /* Labels */
     private static JLabel descriptionLabel;
@@ -11,27 +12,23 @@ public class PwdManagerGUI {
     private static JLabel accountsLabel;
     private static JLabel accounts;
 
-
     /* Input Fields */
-    private static JTextField emailField;
-    private static JTextField descriptionField;
-    private static JTextField passwordField;
-    private static JTextField updateField;
-
+    public static JTextField emailField;
+    public static JTextField descriptionField;
+    public static JTextField passwordField;
+    public static JTextField updateField;
 
     /* Buttons */
     public static JButton cancelBtn;
     public static JButton updateBtn;
     public static JButton addBtn;
 
-
+    Manager manager = new Manager();
     public PwdManagerGUI() {
-
-
 
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();
-        Manager manager = new Manager();
+
 
         frame.setSize(600,350);
         frame.setTitle("Password Manager");
@@ -73,17 +70,17 @@ public class PwdManagerGUI {
 
         addBtn = new JButton("Add");
         addBtn.setBounds(210,60, 80,25);
-        addBtn.addActionListener(new App());
+        addBtn.addActionListener(this);
         panel.add(addBtn);
 
         cancelBtn = new JButton("Cancel");
         cancelBtn.setBounds(210,100,80,25);
-        cancelBtn.addActionListener(new App());
+        cancelBtn.addActionListener(this);
         panel.add(cancelBtn);
 
         updateBtn = new JButton("Update");
         updateBtn.setBounds(210,140,80,25);
-        updateBtn.addActionListener(new App());
+        updateBtn.addActionListener(this);
         panel.add(updateBtn);
 
         accountsLabel = new JLabel("Account List");
@@ -101,9 +98,42 @@ public class PwdManagerGUI {
             y +=25;
         }
 
-
-
         frame.setVisible(true);
     }
 
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getActionCommand() == "Add") {
+            System.out.println("Adding...");
+
+
+            manager.insertAccount(descriptionField.getText());
+            String id  = manager.getAccounts(descriptionField.getText());
+            manager.insertCredentials(id, emailField.getText(), passwordField.getText());
+
+            descriptionField.setText("");
+            emailField.setText("");
+            passwordField.setText("");
+
+        }
+
+        if (e.getActionCommand() == "Update") {
+            System.out.println("Updating...");
+
+
+
+        }
+
+        if (e.getActionCommand() == "Cancel") {
+            System.out.println("Cancel...");
+
+            descriptionField.setText("");
+            emailField.setText("");
+            passwordField.setText("");
+        }
+
+
+    }
 }
