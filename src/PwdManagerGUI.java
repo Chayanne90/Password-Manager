@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class PwdManagerGUI {
 
@@ -8,6 +9,8 @@ public class PwdManagerGUI {
     private static JLabel passwordLabel;
     private static JLabel updateLabel;
     private static JLabel accountsLabel;
+    private static JLabel accounts;
+
 
     /* Input Fields */
     private static JTextField emailField;
@@ -15,18 +18,22 @@ public class PwdManagerGUI {
     private static JTextField passwordField;
     private static JTextField updateField;
 
+
     /* Buttons */
-    private static JButton cancelBtn;
-    private static JButton updateBtn;
-    private static JButton addBtn;
+    public static JButton cancelBtn;
+    public static JButton updateBtn;
+    public static JButton addBtn;
 
 
     public PwdManagerGUI() {
 
+
+
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();
+        Manager manager = new Manager();
 
-        frame.setSize(550,350);
+        frame.setSize(600,350);
         frame.setTitle("Password Manager");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
@@ -79,10 +86,20 @@ public class PwdManagerGUI {
         updateBtn.addActionListener(new App());
         panel.add(updateBtn);
 
-
         accountsLabel = new JLabel("Account List");
-        accountsLabel.setBounds(370,15,160,25);
+        accountsLabel.setBounds(370,15,160,20);
         panel.add(accountsLabel);
+
+        int y = 40;
+        for (String i : manager.displayAccounts()){
+
+            accounts = new JLabel();
+            accounts.setText(i);
+            accounts.setBounds(370,y,160,25);
+            panel.add(accounts);
+
+            y +=25;
+        }
 
 
 
