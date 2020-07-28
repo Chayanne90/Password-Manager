@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Manager {
@@ -80,6 +82,30 @@ public class Manager {
         }
 
         return resultQuery;
+    }
+
+    public List<String> displayAccounts() {
+
+        String sql = "SELECT acc_id, description FROM Accounts ";
+        ResultSet st;
+        String description = "";
+
+        List<String> list = new ArrayList<>();
+        StringBuilder build = new StringBuilder();
+        int i = 0;
+
+        try (Connection connection = this.connection(); PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            st = pstmt.executeQuery();
+            while (st.next()) {
+               description = st.getString("description");
+               list.add(description);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return list;
     }
 
     public String getAccounts(String description) {                                /* return the id and description of the account */
