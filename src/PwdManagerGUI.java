@@ -120,10 +120,8 @@ public class PwdManagerGUI implements ActionListener {
         }
 
         if (e.getActionCommand() == "Update") {
-            System.out.println("Updating...");
-
-
-
+            System.out.println("Updating");
+            
         }
 
         if (e.getActionCommand() == "Cancel") {
